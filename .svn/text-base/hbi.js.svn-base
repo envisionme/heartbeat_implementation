@@ -1,0 +1,56 @@
+
+Drupal.heartbeat = Drupal.heartbeat || {};
+
+Drupal.behaviors.heartbeatCustom = function(context) {
+  
+}
+
+Drupal.heartbeat.toggleComments = function(element) {
+  var elements = $(element).parents('.heartbeat-message-block').find('.heartbeat-comments');
+  //elements.toggle('slow');
+  if (elements.is(":hidden")) {
+    elements.fadeIn("slow");
+  } else {
+    elements.fadeOut("slow");
+  }  
+}
+
+Drupal.heartbeat.toggleVideo = function(element) {
+  $(element).hide('slow');
+  $(element).parents('.beat-item').find('.heartbeat-video-wrapper').show('slow');
+}
+
+Drupal.heartbeat.toggleBigStream = function(element) {
+  $('#heartbeat-bigstream-buttons li').each(function(){
+    $(this).css('background-color', '#ededed');
+  });
+  $('li.' + element).css('background-color', '#cccccc');
+  $('.block-heartbeat').hide('fast');
+  $('#block-heartbeat-' + element).show('fast');
+}
+
+function afterVideo(obj) {
+  var newstate = obj.newstate;
+  if(obj.newstate == "COMPLETED"){
+    var element = $('#' + obj.id).parent();
+    $(element).hide('slow');
+    $(element).parents('.beat-item').find('.heartbeat-video-toggle').show('slow');
+  }
+}
+
+function playerReady(thePlayer) {
+  player = document.getElementById(thePlayer.id);
+  player.addModelListener("STATE", "afterVideo");
+}
+
+$(document).ready(function() {
+
+  $('.block-shouts .resizable-textarea').removeClass('resizable-textarea').addClass('resizable-testarea');
+  
+  $('.block-shouts textarea.resizable').bind('focus', function() {
+    this.innerHTML = '';
+    $('.block-shouts .resizable-testarea').removeClass('resizable-testarea').addClass('resizable-textarea');
+    $(this).parents('.block-shouts').find('.shout-submit').show('fast');
+    
+  });
+});

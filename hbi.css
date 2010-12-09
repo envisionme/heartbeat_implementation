@@ -1,0 +1,398 @@
+@CHARSET "UTF-8";
+
+/**
+ *  FILTERS
+ *
+ */
+ul.heartbeat-filters {
+  padding: 0; margin: 0;
+  list-style: none;
+  list-style-type: none;
+}
+ul.heartbeat-filters li.heartbeat-filter {
+  padding: 2px 3px;
+  margin: 1px;
+  float: left;
+  list-style-type: none;
+  list-style-position: none;
+  border-style: solid;
+  border-width: 1px 1px 0 1px;
+  border-color: #cccccc;
+}
+ul.heartbeat-filters li.heartbeat-filter-set {
+  -moz-background-clip:border;
+  -moz-background-inline-policy:continuous;
+  -moz-background-origin:padding;
+  background:#CCCCCC url(images/background-light.gif) repeat scroll 0 0;
+  color:#333333;
+}
+ul.heartbeat-filters li.heartbeat-filter-set a {
+  color: #39393B;
+}
+ul.heartbeat-filters li.heartbeat-filter-unset a {
+  color: #4C93BD;
+}
+
+
+/**
+ *  GLOBAL HEARTBEAT CLASSES
+ *
+ */
+.heartbeat-stream-block {
+  float: left;
+  width: 100%;
+  padding: 0; margin: 0;
+}
+.heartbeat-stream-page {
+  float: left;
+  width: 100%;
+  padding: 0; margin: 0;
+}
+.fullarchive {
+  clear: both;
+  width: 100%;
+  text-align: right;
+}
+.beat-item .heartbeat-teaser {
+  margin-left: 0;
+  padding-left: 1px;
+}
+.beat-item .heartbeat-teaser p {
+  display: inline;
+  margin: 3px 0px;
+}
+.beat-item h3 {
+  font-size:1.15em;
+  line-height: 1.1em;
+  margin-bottom:0.2em;
+}
+div.beat-item a.user {
+  color: green;
+  font-weight: bold;
+  padding-right: 3px;
+}
+span.hover-delete {
+  display: none;
+}
+.beat-item:hover .hover-delete {
+  display: block;
+}
+.heartbeat-buttons {
+  float: right;
+  margin: 0; padding: 0;
+}
+span.hover-delete {
+  display:block;
+  float:left;
+  height:23px;
+  line-height:23px;
+  padding:0 3px 0;
+}
+span.hover-delete a {
+  font-size: 0.85em;
+  /*background-color: #bbbbbb;
+  border: 1px solid #aaaaaa;/**/
+}
+
+
+
+/**
+ *
+ *  DISPLAY SUITE
+ */ 
+div.heartbeat_add_node div.field-ds-message,
+div.heartbeat_add_node div.field-ds-created {
+  display: inline;
+}
+
+/**
+ *
+ *  TABS FOR MULTIPLE STREAM BLOCKS 
+ */ 
+.heartbeat-tabs {
+  width: auto;
+  height: 30px;
+  list-style: none;
+  list-style-type: none;
+}
+.heartbeat-tab {
+  padding: 2px 5px;
+  border: 0 3px;
+  border-color: transparent;
+  border-style: solid;
+  list-style-type: none;
+  float: left;
+}
+
+
+/**
+ *
+ *  A BEAT 
+ */ 
+.heartbeat-message-block {
+  margin: 2px 0;
+  padding: 3px 3px 12px 3px;
+  width: 100%;
+  position: relative;
+  clear: both;
+}
+.heartbeat-message-block.even {
+  background-color: #f2f2f2;
+  background-color: #ffffff;
+}
+.heartbeat-message-block.odd {
+  background-color: #f9f9f9;
+  background-color: #ffffff;
+}
+.heartbeat-stream-siteactivity .beat-item {
+  padding: 0px 2px;
+}
+.heartbeat-stream .icon-left-margin {
+  float: left;
+  width: 70px;
+}
+.heartbeat-stream .icon-left-margin .icon-left,
+.avatar {
+  padding: 5px 5px;
+  display: block;
+}
+.icon-left img {
+  border: 1px solid #AAA;
+}
+span.user-default {
+  float: left;
+  display: block;
+  width: 50px; height: 50px;
+  background: transparent url('images/user-default.jpg') 50% 50% no-repeat;
+}
+div.heartbeat_become_friends {
+  background: transparent url('images/heartbeat_become_friends_fl.jpg')  0 50% no-repeat;
+  padding-left: 85px;
+  width: auto;
+}
+div.heartbeat_become_friends_flag {
+  background: transparent url('images/heartbeat_become_friends_flag.jpg') 0 50% no-repeat;
+  padding-left: 85px;
+  width: auto;
+}
+div.heartbeat_become_friends_ur {
+  background: transparent url('images/heartbeat_become_friends_ur.jpg') 0 50% no-repeat;
+  padding-left: 85px;
+  width: auto;
+}
+
+.heartbeat-comment span.user-default {
+  width: 32px; height: 32px;
+}
+.heartbeat-stream span.avatar {
+}
+.heartbeat-indent,
+.heartbeat-attachments {
+  margin-left: 70px;
+  margin-top: 5px;
+}
+.heartbeat-taxonomy-links-wrapper {
+  margin: 1px 0; padding: 0;
+}
+.heartbeat-taxonomy-links-wrapper span,
+.heartbeat-taxonomy-links-wrapper a.heartbeat-more {
+  margin: 0; padding: 0 5px 0 0;
+  display: inline;
+  font-size: 0.8em;
+  line-height: 1.1em;
+}
+.heartbeat-taxonomy-links {
+  display: inline;
+}
+
+
+
+
+/**
+ *  ATTACHMENTS:
+ *    LINKS, COMMENT BOX, COMMENT LIST
+ *
+ */
+div.heartbeat-comments {
+  clear: both;
+  /*width: 386px;/**/
+  display: none;
+  background: transparent url('images/comment-top.png') 0px 0px no-repeat;
+  padding: 7px 0 0 0;
+}
+#heartbeat-stream-singleheartbeat div.heartbeat-comments {
+  display: block;  
+}
+.heartbeat-comments-wrapper {
+  padding: 1px 0;
+  margin: 0;
+  /*width: 386px;/**/
+  clear: both;
+  /*float: left;/**/
+  width: 100%;
+}
+.heartbeat-comments form {
+  /*background-color: #ebebeb;
+  width: 386px;/**/
+  clear: both;
+  /*float: left;/**/
+}
+
+.heartbeat-comments ul {
+  padding: 0; margin: 0;
+}
+.heartbeat-comments ul li.heartbeat-comment {
+  float: left;
+  clear: left;
+  list-style: none !important;
+  padding: 4px 0 2px 4px;
+  background-color: #F4F6F7;
+  width: 100%;
+  border: none;
+  margin: 0 0 2px 0;  
+}
+.heartbeat-comment span.avatar {
+  float: left;
+}
+.heartbeat-comment .heartbeat-teaser {
+  margin-left: 50px;
+  border: none;
+}
+.heartbeat-comments label {
+ display: none;  
+}
+.heartbeat-comments .resizable-textarea {
+ /*margin: 0 auto;
+ width: 366px;/**/
+ padding: 3px 0 0 0;  
+}
+.heartbeat-comments .resizable-textarea textarea {
+ /*margin: 0 auto;
+ width: 366px;*/
+ padding: 3px 0 0 0;  
+}
+.heartbeat-comments .form-submit,
+.block-shouts .shout-submit {
+  
+  /*color: #fff;
+  -moz-background-clip:border;
+  -moz-background-inline-policy:continuous;
+  -moz-background-origin:padding;
+  background:#fff url(../../../themes/nitobe/styles/images/background-dark.gif) repeat scroll 0 0;
+
+  border: none;
+  padding: 2px 5px;
+  font-weight: bold;
+  text-align: center;
+  text-variant: small-caps;/**/
+}
+.heartbeat-comments .form-submit {
+  margin: 0px auto 5px 10px; 
+}
+.block-shouts .shout-submit {
+  margin: 5px 0 5px auto; 
+}
+
+span.heartbeat-comment-counter {
+  position: absolute; right: 5px; top: 5px; z-index: 100;
+  /*width: 23px;/**/ height: 23px;
+  display: block;
+}
+span.heartbeat-comment-count a {
+  color: #333;
+  display: block;
+  /*width: 23px;/**/ height: 23px;
+  line-height: 19px;
+  font-size: 10px;
+  padding: 0 0 0 25px;
+}
+span.heartbeat-comment-count.uncommented {
+  background:  transparent url('images/comment_add_icon.png') 0 50% no-repeat;
+  /*text-indent: -999px;/**/
+}
+span.heartbeat-comment-count.commented {
+  background:  transparent url('images/comment_icon.png') 0 50% no-repeat;
+}
+
+.heartbeat-attachments span.flag-ilike,
+.heartbeat-attachments span.og,
+.heartbeat-attachments span.friend, 
+.heartbeat-attachments span.heartbeat-comment-button,  
+.heartbeat-attachments .heartbeat_times,
+.heartbeat-attachments .heartbeat_intersection {
+  display: block;
+  float: left;
+  height: 23px; 
+  padding: 0px 3px 0 3px;
+  line-height: 23px;
+}
+.heartbeat-attachments span.og,
+.heartbeat-attachments span.friend, 
+.heartbeat-attachments span.heartbeat-comment-button {
+  /*width: 23px;/**/
+  margin-right: 2px;
+  margin-left: 2px;
+}
+.heartbeat-attachments span.og a ,
+.heartbeat-attachments span.friend a, 
+.heartbeat-attachments a.friendlist_ui_TW_NONE_add, 
+.heartbeat-attachments span a.user_relationships_popup_link {
+  display: block;
+  height: 23px;
+  line-height: 23px;
+  /*text-indent : -9999px;
+  width: 23px; /**/
+}
+.heartbeat-attachments span.flag-ilike a {
+  display: block;
+  width: 85px;
+  font-size: 0.8em; 
+  height: 23px;
+  line-height: 23px;
+  padding-left: 23px; 
+  background: transparent url('images/thumbs_up_icon.png') 0% 50% no-repeat;
+}
+.heartbeat-attachments span.flag-ilike a.flag-action {
+}
+.heartbeat-attachments span.flag-ilike a.unflag-action {
+  background-image: url('images/thumbs_down_icon.png'); 
+}/*
+.heartbeat-attachments span.og a {
+  background:  transparent url('images/icon_groups.gif') 0 50% no-repeat;
+}
+.heartbeat-attachments a.friendlist_ui_TW_NONE_add {
+  background:  transparent url('images/friend_add_icon.png') 0 50% no-repeat;
+} 
+.heartbeat-attachments span a.user_relationships_popup_link {
+  background:  transparent url('images/tic_add_friend.gif') 0 50% no-repeat;
+}
+/**/
+
+/**
+  * Shout box
+  */
+.block-shouts .resizable-textarea {
+  width:99%;
+}
+.block-shouts {
+  border: 1px solid #D0D0D0;
+  border-width: 2px 0 1px 0;
+  padding: 8px 0 8px 0;
+}
+.block-shouts .form-item {
+  margin: 0;
+}
+.block-shouts .shout-submit {
+  display: none;
+}
+.resizable-testarea textarea {
+  width: 455px;
+  height: 26px;
+  padding: 3px;
+  color: #bbb;
+}
+
+.codeblock.geshifilter {
+  font-size: 0.8em;
+  line-height: 1.1em;
+}
