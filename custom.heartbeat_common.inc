@@ -16,7 +16,8 @@ function _theme_heartbeat_user_picture($user) {
     $image = '<span class="user-default"></span>';
   }/**/
   // Provide a default image for anonymous users
-  return '<span class="avatar">' . $image . '</span>';
+	$output = l($image, 'user/'.$user->uid, array('html' => true, 'attributes' => array('class' => 'avatar'/*, 'title' => 'Go to '.$user->realname.'\'s profile'/**/)));
+	return $output;
 }
 
 /**

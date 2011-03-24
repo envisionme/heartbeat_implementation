@@ -424,22 +424,21 @@ function hbi_heartbeat_theme_alter(&$messages, HeartbeatAccess $stream) {
     $buttons = array('friend' => TRUE, 'comment' => $comment);
 
     $messages[$key]->display_time = FALSE;
-
     if ($message->message_id == 'heartbeat_shout') {
 
       $message_message = '<div class="icon-left-margin">';
       $message_message .= _theme_heartbeat_user_picture($message->uid);
       $message_message .= '</div>';
-      $message_message .= '<div class="heartbeat-indent">' . $message->message . '</div>';
+      $message_message .= '<div class="heartbeat-indent">'.theme('username', $message->actor).' '.$message->message . '</div>';
       $message->message = $message_message;
 
     }
-    else/**/if ($message->message_id == 'heartbeat_facebook_status') {
+    elseif ($message->message_id == 'heartbeat_facebook_status') {
 
       $message_message = '<div class="icon-left-margin">';
       $message_message .= _theme_heartbeat_user_picture($message->uid);
       $message_message .= '</div>';
-      $message_message .= '<div class="heartbeat-indent">' . $message->message . '</div>';
+      $message_message .= '<div class="heartbeat-indent">'.theme('username', $message->actor).' '.$message->message . '</div>';
       $message->message = $message_message;
 
     }
@@ -470,7 +469,6 @@ function hbi_heartbeat_theme_alter(&$messages, HeartbeatAccess $stream) {
         $buttons['member'] = TRUE;
         $buttons['wrap'] = TRUE;
       }
-
       // Catch the article content to present video (adds and edits)
       elseif ($node->type == 'article' && in_array($message->message_id, array('og_add_article_content', 'og_edit_group_content', 'heartbeat_edit_node'))) {
 
@@ -630,6 +628,7 @@ function theme_heartbeat_reference($message, $node) {
  * Theme function for a heartbeat showcase image
  */
 function theme_heartbeat_showcase_item($message, $node) {
+	// dpm($message);
   $output = '';
   //~ $output .= _theme_heartbeat_icon_left('showcase_image', $message, $node);
   $output .= '<div class="icon-left-margin">' . _theme_heartbeat_user_picture($message->uid) . '</div>';
