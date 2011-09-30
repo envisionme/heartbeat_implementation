@@ -218,6 +218,11 @@ function hbi_theme() {
       'arguments' => array('message' => NULL, 'node' => NULL)
     ),
 
+    //Theme Job Spec node
+    'heartbeat_job_specification' => array(
+      'arguments' => array('message' => NULL, 'node' => NULL)
+    ),
+
     // Theme agenda or event group post
     'heartbeat_event' => array(
       'arguments' => array('message' => NULL, 'node' => NULL)
@@ -494,6 +499,10 @@ function hbi_heartbeat_theme_alter(&$messages, HeartbeatAccess $stream) {
         $messages[$key]->message = theme('heartbeat_showcase_item', $message, $node);
         $buttons['wrap'] = TRUE;
       }
+      elseif (in_array($node->type, array('job-specification', 'job_specification')) && in_array($message->message_id, array('og_add_article_content', 'og_edit_group_content', 'heartbeat_edit_node', 'heartbeat_add_node'))) {
+        $messages[$key]->message = theme('heartbeat_job_specification', $message, $node);
+        $buttons['wrap'] = TRUE;
+      }
       elseif (($node->type == 'reference') && in_array($message->message_id, array('og_add_article_content', 'og_edit_group_content', 'heartbeat_edit_node', 'heartbeat_add_node'))) {
         $messages[$key]->message = theme_heartbeat_reference($message, $node);
         $buttons['wrap'] = TRUE;
@@ -693,6 +702,21 @@ function theme_heartbeat_showcase_item($message, $node) {
 
   $output .= '</div>'; // end heartbeat-indent div
 
+  return $output;
+}
+
+function theme_heartbeat_job_specification($message, $node) {
+  
+  $output .= '<div class="icon-left-margin">' . _theme_heartbeat_user_picture($message->uid) . '</div>';
+  $output .= '<div class="heartbeat-indent">';
+  $account = user_load($node->uid);
+  
+  $output .= t('!name has added a new @type !title', array(
+    '!name' => theme('username', $account),
+    '@type' => 'Job',
+    '!title' => '',
+  ));
+  $output .= '</div></div>';
   return $output;
 }
 
