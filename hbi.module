@@ -99,6 +99,20 @@ function hbi_nodeapi(&$node, $op, $arg = 0) {
     heartbeat_api_log($message_id, $node->uid, 0, $node->nid, 0, $variables);
 
   }
+
+  if ($op == 'update' && in_array($node->type, array('company_testimonials'))) {
+
+    $message_id = 'heartbeat_edit_node';
+    $variables = array(
+      '@username' => l(user_load($node->uid)->name, 'user/' . $node->uid),
+      '@node_type' => $node->type == 'company_testimonials' ? 'code' : $node->type,
+      '@node_title' => l($node->title, 'node/' . $node->nid),
+
+    );
+
+    heartbeat_api_log($message_id, $node->uid, 0, $node->nid, 0, $variables);
+  }
+
 }
 
 /**
