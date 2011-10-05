@@ -100,7 +100,7 @@ function hbi_nodeapi(&$node, $op, $arg = 0) {
 
   }
 
-  if ($op == 'update' && in_array($node->type, array('company_testimonials'))) {
+  if (($op == 'update') && ($node->type == 'company_testimonials')) {
 
     $message_id = 'heartbeat_edit_node';
     $variables = array(
@@ -110,7 +110,8 @@ function hbi_nodeapi(&$node, $op, $arg = 0) {
 
     );
 
-    heartbeat_api_log($message_id, $node->uid, 0, $node->nid, 0, $variables);
+    //heartbeat_api_log($message_id, '701', 0, $node->nid, 0, $variables);
+
   }
 
 }
@@ -236,6 +237,12 @@ function hbi_theme() {
     'heartbeat_job_specification' => array(
       'arguments' => array('message' => NULL, 'node' => NULL)
     ),
+
+    // Theme Company Testimonial
+    'heartbeat_approve_testimonial' => array(
+      'arguments' => array('message' => NULL, 'node' => NULL)
+    ),
+    
 
     // Theme agenda or event group post
     'heartbeat_event' => array(
@@ -395,8 +402,8 @@ function hbi_heartbeat_message_info() {
     ),
 
 
-    4 =>
-    array (
+    4 => 
+    array ( 
       'message' => '!user became a fan of !node_title.',
       'message_concat' => '!user became a fan of %node_title%.',
       'message_id' => 'heartbeat_flag_fan_add',
@@ -476,6 +483,9 @@ function hbi_heartbeat_theme_alter(&$messages, HeartbeatAccess $stream) {
       $message->message = $message_message;
 
     }
+    elseif ($message->message_id == 'heartbeat_approve_testimonial') {
+      $message->message = 'A testimonial was approved';
+    }
     elseif (in_array($message->message_id, array('heartbeat_become_friends', 'heartbeat_become_friends_flag', 'heartbeat_become_friends_ur'))) {
 
       $messages[$key]->message = theme('heartbeat_friends', $messages[$key]);
@@ -486,6 +496,25 @@ function hbi_heartbeat_theme_alter(&$messages, HeartbeatAccess $stream) {
       $node = node_load($message->nid);
 
       $messages[$key]->display_time = FALSE;
+
+      if ($node->type == 'company_testimonials') {
+        $output .= '<div class="icon-left-margin">' . _theme_heartbeat_user_picture($message->uid) . '</div>';
+        $output .= '<div class="heartbeat-indent">';
+        $account = user_load($node->uid);
+  
+        $output .= t('A new testimonial is posted for !name', array(
+          '!name' => theme('username', $account),
+        ));
+
+        $output .= '<div class="heartbeat-teaser">';
+        $output .= '<h3>' . l($node->title, 'node/' . $node->nid) . '</h3>';
+        $output .= $node->teaser;
+        $output .= '</div><!--heartbeat-teaser-->';
+
+        $output .= '</div>';
+
+        $messages[$key]->message = $output;
+      }
 
       // Catch some group content to theme differently
       if (in_array($message->message_id, array('og_add_group_content', 'og_edit_group_content'))) {
@@ -730,7 +759,13 @@ function theme_heartbeat_job_specification($message, $node) {
     '@type' => 'Job',
     '!title' => '',
   ));
-  $output .= '</div></div>';
+
+  $output .= '<div class="heartbeat-teaser">';
+  $output .= '<h3>' . l($node->title, 'node/' . $node->nid) . '</h3>';
+  $output .= $node->teaser;
+  $output .= '</div><!--heartbeat-teaser-->';
+
+  $output .= '</div>';
   return $output;
 }
 
