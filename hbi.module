@@ -100,20 +100,6 @@ function hbi_nodeapi(&$node, $op, $arg = 0) {
 
   }
 
-  if (($op == 'update') && ($node->type == 'company_testimonials')) {
-
-    $message_id = 'heartbeat_edit_node';
-    $variables = array(
-      '@username' => l(user_load($node->uid)->name, 'user/' . $node->uid),
-      '@node_type' => $node->type == 'company_testimonials' ? 'code' : $node->type,
-      '@node_title' => l($node->title, 'node/' . $node->nid),
-
-    );
-
-    //heartbeat_api_log($message_id, '701', 0, $node->nid, 0, $variables);
-
-  }
-
 }
 
 /**
@@ -192,24 +178,6 @@ function hbi_flag($action, $flag, $content_id, $account) {
   }
 }
 
-/**
- * Implementation of hook_block().
- *//*
-function hbi_block($op, $delta = 0, $category = array()) {
-  if ($op == 'list') {
-    return array(
-      0 => array(
-        'info' => t('Big stream buttons'),
-      )
-    );
-  }
-  elseif ($op == 'view') {
-    return array(
-      'subject' => t('Big stream buttons'),
-      'content' => _bigstream_buttons(),
-    );
-  }
-}/**/
 
 /**
  * Implementation of hook_theme().
@@ -650,11 +618,9 @@ function theme_heartbeat_article($message, $node) {
  * Theme function for a heartbeat reference
  */
 function theme_heartbeat_reference($message, $node) {
-  //~ print_r($node);
   $output = '';
-  //~ $output .= _theme_heartbeat_icon_left('showcase_image', $message, $node);
-  $output .= '<div class="icon-left-margin">' . _theme_heartbeat_user_picture($message->uid) . '</div>';
 
+  $output .= '<div class="icon-left-margin">' . _theme_heartbeat_user_picture($message->uid) . '</div>';
   $output .= '<div class="heartbeat-indent">';
   
   $account = user_load($node->uid);
@@ -664,21 +630,11 @@ function theme_heartbeat_reference($message, $node) {
     '%type' => $message->variables['@node_type'],//'Reference',
     '!referenced' => theme('username', user_load($node->field_user[0]['uid']))//l($node->title, 'node/' . $node->nid)
   ));
-  //~ $output .= _theme_heartbeat_comment_button($node);
-  //~ $output .= $message->rebuild_message();
 
   $output .= '<div class="heartbeat-teaser">';
   $output .= '<h3>' . l($node->title, 'node/' . $node->nid) . '</h3>';
   $output .= $node->teaser;
   // Articles have an image and optional video
-  /*if (isset($node->field_image[0]['fid'])) {
-    if (isset($node->field_video[0]['fid'])) {
-      $output .= theme('heartbeat_video', $node->nid, $node->field_video[0]['filepath'], $node->field_image[0]['filepath']);
-    }
-    else {
-      $output .= theme('imagecache', 'video_teaser', $node->field_image[0]['filepath']);
-    }
-  }/**/
 
   $output .= l(t('more'), 'node/'. $node->nid, array('attributes' => array('class' => 'heartbeat-more')));
   $output .= '</div>'; // end heartbeat-teaser div
@@ -692,7 +648,6 @@ function theme_heartbeat_reference($message, $node) {
  * Theme function for a heartbeat showcase image
  */
 function theme_heartbeat_showcase_item($message, $node) {
-	// dpm($message);
   $output = '';
   //~ $output .= _theme_heartbeat_icon_left('showcase_image', $message, $node);
   $output .= '<div class="icon-left-margin">' . _theme_heartbeat_user_picture($message->uid) . '</div>';
@@ -706,8 +661,6 @@ function theme_heartbeat_showcase_item($message, $node) {
     '@type' => 'Showcase Item',
     '!title' => ''//l($node->title, 'node/' . $node->nid)
   ));
-  //~ $output .= _theme_heartbeat_comment_button($node);
-  //~ $output .= $message->rebuild_message();
 
   $output .= '<div class="heartbeat-teaser">';
   $output .= '<h3>' . l($node->title, 'node/' . $node->nid) . '</h3>';
@@ -722,25 +675,7 @@ function theme_heartbeat_showcase_item($message, $node) {
     }
   }/**/
 
-  //~ $output .= '<div class="heartbeat-taxonomy-links-wrapper">';
-  //~ // Hack todays date's
-  //~ if (date('z') == date('z', $node->changed)) {
-    //~ $time = date('H:m:s', $node->changed);
-  //~ }
-  //~ else {
-    //~ $time = format_date($node->changed, 'short');
-  //~ }
-  //~ $output .= '<span>' . $time . '</span>';
-  //~ if (!empty($node->taxonomy)) {
-    //~ $output .= '<div class="heartbeat-taxonomy-links">';
-    //~ foreach ($node->taxonomy as $term) {
-      //~ $output .= ' <span>' . l(t($term->name), 'taxonomy/term/'. $term->tid) . '</span>';
-    //~ }
-    //~ $output .= '</div>';
-  //~ }
-
   $output .= l(t('more'), 'node/'. $node->nid, array('attributes' => array('class' => 'heartbeat-more')));
-  //~ $output .= '</div>'; // end taxonomy links wrapper
   $output .= '</div>'; // end heartbeat-teaser div
 
   $output .= '</div>'; // end heartbeat-indent div
@@ -799,12 +734,9 @@ function theme_heartbeat_event($message, $node) {
 function theme_heartbeat_album($message, $node) {
 
   $output = _theme_heartbeat_icon_left('album', $message, $node);
-
   $output .= '<div class="heartbeat-indent">';
-
   $output .= '<div>' .  $node->teaser . '</div>';
   $output .= '<strong>' . node_load(current($node->og_groups))->title . '</strong><br />';
-
   $output .= '</div>';
 
   return $output;
@@ -816,19 +748,13 @@ function theme_heartbeat_album($message, $node) {
 function theme_heartbeat_group_post($message, $node) {
 
   $output = '';
-
   $output .= '<div class="icon-left-margin">' . _theme_heartbeat_user_picture($message->uid) . '</div>';
-
   $output .= '<div class="heartbeat-indent">';
-
   $output .= $message->rebuild_message();
-
   $output .= '<div class="heartbeat-teaser">';
   $output .= '<strong>' . node_load(current($node->og_groups))->title . '</strong><br />';
-  //$output .= '<h3>' . l($node->title, 'node/' . $node->nid) . '</h3>';
   $output .= $node->teaser;
   $output .= '</div>';
-
   $output .= '</div>';
 
   return $output;
@@ -840,7 +766,6 @@ function theme_heartbeat_group_post($message, $node) {
 function theme_heartbeat_friends($message) {
 
   $output = '';
-
   $output .= '<div class="icon-left-margin">' . _theme_heartbeat_user_picture($message->uid) . '</div>';
 
   // If the message has to be shown anyway (inside the message)
