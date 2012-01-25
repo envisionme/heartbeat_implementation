@@ -396,3 +396,7 @@ span.heartbeat-comment-count.commented {
   font-size: 0.8em;
   line-height: 1.1em;
 }
+
+.fb-status-line {
+  font-style: italic;
+}

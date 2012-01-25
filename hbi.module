@@ -448,7 +448,7 @@ function hbi_heartbeat_theme_alter(&$messages, HeartbeatAccess $stream) {
       $message_message .= _theme_heartbeat_user_picture($message->uid);
       $message_message .= '</div>';
       $message_message .= '<div class="heartbeat-indent">'.theme('username', $message->actor).' has a new status.</div>';
-      $message_message .= '<div>' .$message->message. '</div>';
+      $message_message .= '<div class="fb-status-line">' .$message->message. '</div>';
       $message->message = $message_message;
 
     }
