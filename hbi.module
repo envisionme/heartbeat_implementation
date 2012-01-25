@@ -336,38 +336,38 @@ function hbi_heartbeat_message_info() {
         '@group' => '[node:ogname-title-link]',
       ),
     ),
-    3 =>
-    array (
-      'message' => '!message',
-      'message_concat' => '',
-      'message_id' => 'heartbeat_facebook_status',
-      'concat_args' =>
-      array (
-        'type' => 'single',
-        'group_by' => 'none',
-        'group_target' => '',
-        'group_by_target' => '',
-        'group_num_max' => '',
-        'merge_separator' => '',
-        'merge_end_separator' => '',
-        'roles' =>
-        array (
-          0 => '0',
-          1 => '0',
-          2 => '0',
-          3 => '0',
-          4 => '0',
-          5 => '0',
-        ),
-      ),
-      'description' => 'When a user posts a facebook status message',
-      'perms' => '1',
-      'custom' => HEARTBEAT_MESSAGE_DEFAULT,
-      'variables' =>
-      array (
-        'build_mode' => 'message',
-      ),
-    ),
+    //~ 3 =>
+    //~array (
+    //~  'message' => '!message',
+    //~  'message_concat' => '',
+    //~  'message_id' => 'heartbeat_facebook_status',
+    //~  'concat_args' =>
+    //~  array (
+    //~    'type' => 'single',
+    //~    'group_by' => 'none',
+    //~    'group_target' => '',
+    //~    'group_by_target' => '',
+    //~    'group_num_max' => '',
+    //~    'merge_separator' => '',
+    //~    'merge_end_separator' => '',
+    //~    'roles' =>
+    //~    array (
+    //~      0 => '0',
+    //~      1 => '0',
+    //~      2 => '0',
+    //~      3 => '0',
+    //~      4 => '0',
+    //~      5 => '0',
+    //~    ),
+    //~  ),
+    //~  'description' => 'When a user posts a facebook status message',
+    //  'perms' => '1',
+    //~  'custom' => HEARTBEAT_MESSAGE_DEFAULT,
+    //~  'variables' =>
+    //~  array (
+    //~    'build_mode' => 'message',
+    //~ ),
+    //~ ),
 
 
     4 => 
@@ -442,12 +442,13 @@ function hbi_heartbeat_theme_alter(&$messages, HeartbeatAccess $stream) {
       $message->message = $message_message;
 
     }
-    elseif ($message->message_id == 'heartbeat_facebook_status') {
+    elseif ($message->message_id == 'fb_status_update') {
 
       $message_message = '<div class="icon-left-margin">';
       $message_message .= _theme_heartbeat_user_picture($message->uid);
       $message_message .= '</div>';
-      $message_message .= '<div class="heartbeat-indent">'.theme('username', $message->actor).' '.$message->message . '</div>';
+      $message_message .= '<div class="heartbeat-indent">'.theme('username', $message->actor).' has a new status.</div>';
+      $message_message .= '<div>' .$message->message. '</div>';
       $message->message = $message_message;
 
     }
