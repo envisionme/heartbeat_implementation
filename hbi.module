@@ -686,7 +686,7 @@ function theme_heartbeat_showcase_item($message, $node) {
 
 function theme_heartbeat_job_specification($message, $node) {
   
-  $output .= '<div class="icon-left-margin">' . _theme_heartbeat_user_picture($message->uid) . '</div>';
+  $output .= '<div class="icon-left-margin">' . _theme_heartbeat_user_picture($node->uid) . '</div>';
   $output .= '<div class="heartbeat-indent">';
   $account = user_load($node->uid);
   
