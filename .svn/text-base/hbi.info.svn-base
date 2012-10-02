@@ -1,5 +1,0 @@
-; $Id: hbi.info,v 1.1 2008/07/01 18:21:30 jhedstrom Exp $
-name = Heartbeat implementation
-description = Heartbeat implementation for this site.
-package = Heartbeat
-core = 6.x
