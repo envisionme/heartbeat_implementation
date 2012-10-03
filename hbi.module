@@ -195,7 +195,7 @@ function hbi_theme() {
     'heartbeat_article' => array(
       'arguments' => array('message' => NULL, 'node' => NULL)
     ),
-    
+
     // Theme Showcase heartbeat node
     'heartbeat_showcase_item' => array(
       'arguments' => array('message' => NULL, 'node' => NULL)
@@ -210,7 +210,7 @@ function hbi_theme() {
     'heartbeat_approve_testimonial' => array(
       'arguments' => array('message' => NULL, 'node' => NULL)
     ),
-    
+
 
     // Theme agenda or event group post
     'heartbeat_event' => array(
@@ -370,8 +370,8 @@ function hbi_heartbeat_message_info() {
     //~ ),
 
 
-    4 => 
-    array ( 
+    4 =>
+    array (
       'message' => '!user became a fan of !node_title.',
       'message_concat' => '!user became a fan of %node_title%.',
       'message_id' => 'heartbeat_flag_fan_add',
@@ -470,7 +470,7 @@ function hbi_heartbeat_theme_alter(&$messages, HeartbeatAccess $stream) {
         $output .= '<div class="icon-left-margin">' . _theme_heartbeat_user_picture($message->uid) . '</div>';
         $output .= '<div class="heartbeat-indent">';
         $account = user_load($node->uid);
-  
+
         $output .= t('A new testimonial is posted for !name', array(
           '!name' => theme('username', $account),
         ));
@@ -623,9 +623,9 @@ function theme_heartbeat_reference($message, $node) {
 
   $output .= '<div class="icon-left-margin">' . _theme_heartbeat_user_picture($message->uid) . '</div>';
   $output .= '<div class="heartbeat-indent">';
-  
+
   $account = user_load($node->uid);
-  
+
   $output .= t('!name has added a new %type for !referenced', array(
     '!name' => theme('username', $account),
     '%type' => $message->variables['@node_type'],//'Reference',
@@ -654,9 +654,9 @@ function theme_heartbeat_showcase_item($message, $node) {
   $output .= '<div class="icon-left-margin">' . _theme_heartbeat_user_picture($message->uid) . '</div>';
 
   $output .= '<div class="heartbeat-indent">';
-  
+
   $account = user_load($node->uid);
-  
+
   $output .= t('!name has added a new @type !title', array(
     '!name' => theme('username', $account),
     '@type' => 'Showcase Item',
@@ -685,11 +685,11 @@ function theme_heartbeat_showcase_item($message, $node) {
 }
 
 function theme_heartbeat_job_specification($message, $node) {
-  
+  $output = '';
   $output .= '<div class="icon-left-margin">' . _theme_heartbeat_user_picture($node->uid) . '</div>';
   $output .= '<div class="heartbeat-indent">';
   $account = user_load($node->uid);
-  
+
   $output .= t('!name has added a new @type !title', array(
     '!name' => theme('username', $account),
     '@type' => 'Job',
