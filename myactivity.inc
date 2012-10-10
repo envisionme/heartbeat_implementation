@@ -31,38 +31,45 @@ class MyActivity extends HeartbeatAccess {
   public function dressUpMessages(HeartbeatParser $heartbeat) {
 
     if (!empty($this->stream->heartbeat_relations)) {
-	    $viewed_user_uid = $this->_uid;
+      $viewed_user_uid = $this->_uid;
       // filter activity for related users and activity that was addressed to the current user.
       //$sql = " AND ((ua.uid in( %s ) AND ua.access >= 0) OR (ua.uid_target = %d AND ua.nid <> 0))";
-	    $sql = '';
+      $sql = '';
       $heartbeat->raw_messages = $this->resultSql($sql, array(implode(',', $this->stream->heartbeat_relations), $this->stream->uid));
-	    $msg_array = array();
+      $msg_array = array();
 
-	    //$flag = flag_get_flag('follow_company') or die('no "follow_company" flag defined');
-
+      //$flag = flag_get_flag('follow_company') or die('no "follow_company" flag defined');
       //dpm($heartbeat->raw_messages);
+      global $user;
 
-	    foreach ($heartbeat->raw_messages as $message) {
-        if (isset($message->nid_info['uid'])) {
-  		    $msg_uid = $message->nid_info['uid'];
+      foreach ($heartbeat->raw_messages as $message) {
 
-  		    $result = db_query('SELECT * FROM {flag_content} WHERE (content_id = "'. $msg_uid .'") AND (uid = "'. $viewed_user_uid .'") AND (fid = "16")');
+        // Get personal (own) activity
+        if ( $message->actor->uid == $user->uid ) {
+          $msg_array[] = $message;
+        }
 
-  		    while ($new_object = db_fetch_object($result)) {
-  			    $msg_array[] = $message;
-  		    }
+        // Get friends activity.
+        else if (isset($message->nid_info['uid'])) {
+          $msg_uid = $message->nid_info['uid'];
 
-  		    if (sizeof(user_relationships_load($param = array("approved" => 1, "between" => array($viewed_user_uid, $msg_uid)))) > 0)
-  			    $msg_array[] = $message;
+          $result = db_query('SELECT * FROM {flag_content} WHERE (content_id = "'. $msg_uid .'") AND (uid = "'. $viewed_user_uid .'") AND (fid = "16")');
+
+          while ($new_object = db_fetch_object($result)) {
+            $msg_array[] = $message;
+          }
+
+          if (sizeof(user_relationships_load($param = array("approved" => 1, "between" => array($viewed_user_uid, $msg_uid)))) > 0)
+            $msg_array[] = $message;
 
           // Add status updates to heartbeat stream.
           if ((sizeof(user_relationships_load($param = array("approved" => 1, "between" => array($viewed_user_uid, $message->uid)))) > 0) && ($message->message_id == 'fb_status_update')) {
             $msg_array[] = $message;
           }
         }
-	    }
+      }
 
-	    $heartbeat->raw_messages = $msg_array;
+      $heartbeat->raw_messages = $msg_array;
     }
     else {
       $heartbeat->raw_messages = array();
