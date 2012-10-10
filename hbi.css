@@ -400,3 +400,7 @@ span.heartbeat-comment-count.commented {
 .fb-status-line {
   font-style: italic;
 }
+
+#heartbeat-stream-myactivity .user_relationships_popup_link {
+    display: none;
+}
