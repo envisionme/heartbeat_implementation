@@ -507,7 +507,7 @@ function hbi_heartbeat_theme_alter(&$messages, HeartbeatAccess $stream) {
         $messages[$key]->message = theme('heartbeat_article', $message, $node);
         $buttons['wrap'] = TRUE;
       }
-      elseif (in_array($node->type, array('showcase_audio', 'showcase_document', 'showcase_image', 'showcase_slide', 'showcase_video')) && in_array($message->message_id, array('og_add_article_content', 'og_edit_group_content', 'heartbeat_edit_node', 'heartbeat_add_node'))) {
+      elseif (in_array($node->type, array('showcase_audio', 'showcase_document', 'showcase_image', 'showcase_slide', 'showcase_video', 'showcase_link')) && in_array($message->message_id, array('og_add_article_content', 'og_edit_group_content', 'heartbeat_edit_node', 'heartbeat_add_node'))) {
         $messages[$key]->message = theme('heartbeat_showcase_item', $message, $node);
         $buttons['wrap'] = TRUE;
       }
@@ -646,7 +646,7 @@ function theme_heartbeat_reference($message, $node) {
 }
 
 /**
- * Theme function for a heartbeat showcase image
+ * Theme function for a heartbeat showcase item
  */
 function theme_heartbeat_showcase_item($message, $node) {
   $output = '';
