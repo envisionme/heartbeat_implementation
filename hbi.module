@@ -512,8 +512,10 @@ function hbi_heartbeat_theme_alter(&$messages, HeartbeatAccess $stream) {
         $buttons['wrap'] = TRUE;
       }
       elseif (in_array($node->type, array('job-specification', 'job_specification')) && in_array($message->message_id, array('og_add_article_content', 'og_edit_group_content', 'heartbeat_edit_node', 'heartbeat_add_node'))) {
-        $messages[$key]->message = theme('heartbeat_job_specification', $message, $node);
-        $buttons['wrap'] = TRUE;
+        //if (njs_is_company(user_load($messages[$key]->uid))) {
+          $messages[$key]->message = theme('heartbeat_job_specification', $message, $node);
+          $buttons['wrap'] = TRUE;
+        //}
       }
       elseif (($node->type == 'reference') && in_array($message->message_id, array('og_add_article_content', 'og_edit_group_content', 'heartbeat_edit_node', 'heartbeat_add_node'))) {
         $messages[$key]->message = theme_heartbeat_reference($message, $node);
@@ -688,7 +690,18 @@ function theme_heartbeat_job_specification($message, $node) {
   $output = '';
   $output .= '<div class="icon-left-margin">' . _theme_heartbeat_user_picture($node->uid) . '</div>';
   $output .= '<div class="heartbeat-indent">';
-  $account = user_load($node->uid);
+  //dpm('Heartbeat job specification called');
+  //$account = user_load($node->uid);
+
+  if ( njs_is_company($node->uid) ) {
+    $account = user_load($node->uid);
+  }
+  else {
+    $result = db_query_range("SELECT uid FROM {flag_content} WHERE content_id = %d AND fid = %d", $node->uid, 15, 0, 1);
+    $row = db_fetch_object($result);
+
+    $account = user_load($row->uid);
+  }
 
   $output .= t('!name has added a new @type !title', array(
     '!name' => theme('username', $account),
