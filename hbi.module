@@ -688,7 +688,7 @@ function theme_heartbeat_showcase_item($message, $node) {
 
 function theme_heartbeat_job_specification($message, $node) {
   $output = '';
-  $output .= '<div class="icon-left-margin">' . _theme_heartbeat_user_picture($node->uid) . '</div>';
+  $output .= '<div class="icon-left-margin">' . _theme_heartbeat_user_picture($message->uid) . '</div>';
   $output .= '<div class="heartbeat-indent">';
   //dpm('Heartbeat job specification called');
   //$account = user_load($node->uid);
@@ -697,10 +697,11 @@ function theme_heartbeat_job_specification($message, $node) {
     $account = user_load($node->uid);
   }
   else {
-    $result = db_query_range("SELECT uid FROM {flag_content} WHERE content_id = %d AND fid = %d", $node->uid, 15, 0, 1);
-    $row = db_fetch_object($result);
+    //$result = db_query_range("SELECT uid FROM {flag_content} WHERE content_id = %d AND fid = %d", $node->uid, 15, 0, 1);
+    //$row = db_fetch_object($result);
+    //$account = user_load($row->uid);
+    $account = user_load($message->uid);
 
-    $account = user_load($row->uid);
   }
 
   $output .= t('!name has added a new @type !title', array(
