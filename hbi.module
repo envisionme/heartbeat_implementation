@@ -60,7 +60,7 @@ function hbi_heartbeat_messages_alter(&$messages, HeartbeatAccess $stream) {
   // disable or block messages from being displayed.
   global $user;
   foreach ($messages as $key => $message) {
-    if ( $messages[$key]->uid == $user->uid && njs_is_applicant($user)) {
+    if ( njs_is_applicant($user)) {
       $row_node = node_load($messages[$key]->nid);
       if ($row_node->type == 'job_specification') {
         unset($messages[$key]);
