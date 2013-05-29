@@ -55,6 +55,20 @@ function hbi_init() {
   drupal_add_css(drupal_get_path('module', 'hbi') . '/hbi.css');
 }
 
+function hbi_heartbeat_messages_alter(&$messages, HeartbeatAccess $stream) {
+  // Loop through messages and unset $messages[$key] when you want to 
+  // disable or block messages from being displayed.
+  global $user;
+  foreach ($messages as $key => $message) {
+    if ( $messages[$key]->uid == $user->uid && njs_is_applicant($user)) {
+      $row_node = node_load($messages[$key]->nid);
+      if ($row_node->type == 'job_specification') {
+        unset($messages[$key]);
+      }
+    }
+  }
+} 
+
 /**
  * Implementation of hook_nodeapi().
  */
