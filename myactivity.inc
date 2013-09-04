@@ -53,19 +53,27 @@ class MyActivity extends HeartbeatAccess {
         else if (isset($message->nid_info['uid'])) {
           $msg_uid = $message->nid_info['uid'];
 
+          // Follow company flag id = 16
           $result = db_query('SELECT * FROM {flag_content} WHERE (content_id = "'. $msg_uid .'") AND (uid = "'. $viewed_user_uid .'") AND (fid = "16")');
 
           while ($new_object = db_fetch_object($result)) {
             $msg_array[] = $message;
           }
 
-          if (sizeof(user_relationships_load($param = array("approved" => 1, "between" => array($viewed_user_uid, $msg_uid)))) > 0)
+          // Follow company flag id = 24
+          $result2 = db_query('SELECT * FROM {flag_content} WHERE (content_id = "'. $msg_uid .'") AND (uid = "'. $viewed_user_uid .'") AND (fid = "24")');
+
+          while ($new_object2 = db_fetch_object($result2)) {
+            $msg_array[] = $message;
+          }
+
+          /*if (sizeof(user_relationships_load($param = array("approved" => 1, "between" => array($viewed_user_uid, $msg_uid)))) > 0)
             $msg_array[] = $message;
 
           // Add status updates to heartbeat stream.
           if ((sizeof(user_relationships_load($param = array("approved" => 1, "between" => array($viewed_user_uid, $message->uid)))) > 0) && ($message->message_id == 'fb_status_update')) {
             $msg_array[] = $message;
-          }
+          }*/
         }
       }
 
