@@ -42,6 +42,10 @@ class MyActivity extends HeartbeatAccess {
       //dpm($heartbeat->raw_messages);
       global $user;
 
+      $block_user_flag = flag_get_flag('block_user');
+      $follow_company_flag = flag_get_flag('follow_company');
+      $follow_user_flag = flag_get_flag('follow_user');
+
       foreach ($heartbeat->raw_messages as $message) {
 
         // Get personal (own) activity
@@ -54,17 +58,26 @@ class MyActivity extends HeartbeatAccess {
           $msg_uid = $message->nid_info['uid'];
 
           // Follow company flag id = 16
-          $result = db_query('SELECT * FROM {flag_content} WHERE (content_id = "'. $msg_uid .'") AND (uid = "'. $viewed_user_uid .'") AND (fid = "16")');
+          $result = db_query('SELECT * FROM {flag_content} WHERE (content_id = "%s") AND (uid = "%s") AND (fid = "%s")', $msg_uid, $viewed_user_uid, $follow_company_flag->fid);
 
           while ($new_object = db_fetch_object($result)) {
             $msg_array[] = $message;
           }
 
-          // Follow company flag id = 24
-          $result2 = db_query('SELECT * FROM {flag_content} WHERE (content_id = "'. $msg_uid .'") AND (uid = "'. $viewed_user_uid .'") AND (fid = "24")');
+          // Follow person flag id = 24
+          $result2 = db_query('SELECT * FROM {flag_content} WHERE (content_id = "%s") AND (uid = "%s") AND (fid = "%s")', $msg_uid, $viewed_user_uid, $follow_user_flag->fid);
 
-          while ($new_object2 = db_fetch_object($result2)) {
-            $msg_array[] = $message;
+          $person_blocked = false;
+
+          $result_blocked = db_query('SELECT * FROM {flag_content} WHERE (content_id = "%s") AND (fid = "%s") AND (uid = "%s")', $user->uid, $block_user_flag->fid, $msg_uid);
+          while ( $row = db_fetch_object($result_blocked) ) {
+            $person_blocked = true;
+          }
+
+          if ( $person_blocked == false ) {
+            while ($new_object2 = db_fetch_object($result2)) {
+              $msg_array[] = $message;
+            }
           }
 
           /*if (sizeof(user_relationships_load($param = array("approved" => 1, "between" => array($viewed_user_uid, $msg_uid)))) > 0)
