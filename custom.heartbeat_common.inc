@@ -62,14 +62,6 @@ function _theme_heartbeat_action_buttons($message, $args = array(), $node = NULL
 
   global $user;
 
-  static $relationship_type = NULL;
-
-  if (!isset($relationship_type)) {
-    $all_relationships = user_relationships_types_load();
-    // 1 is the friend relation type
-    $relationship_type = $all_relationships[1];
-  }
-
   $links = array();
 
   if (!empty($args['wrap'])) {
@@ -77,7 +69,6 @@ function _theme_heartbeat_action_buttons($message, $args = array(), $node = NULL
   }
 
   $links[] = '<span class="heartbeat_times">' . theme('heartbeat_time_ago', $message) . '</span>';
-  //$links[] = '<span class="heartbeat_intersection">  </span>';
 
   if (!empty($args['comment'])) {
     $links[] = _theme_heartbeat_comment_button($message, t('comment'));
@@ -88,13 +79,7 @@ function _theme_heartbeat_action_buttons($message, $args = array(), $node = NULL
   }
 
   if (!empty($args['friend']) && $message->uid != $user->uid) {
-    // For friendlist module
-    //$friend = friendlist_ui_get_link('add', $message->uid, 1);
-    //if (!empty($friend)) $links[] = '<span class="friend">' . $friend . '</span>';
-
     $links[] = '<span class="friend">' . theme('user_relationships_request_relationship_direct_link', user_load($message->uid), $relationship_type) . '</span>';
-    //~ $links[] = '<span class="friend">' . l('Add as Contact', 'relationship/'.$message->uid.'/request') . '</span>';
-
   }
 
   if (!empty($args['wrap'])) {
