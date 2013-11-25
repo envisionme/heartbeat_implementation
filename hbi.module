@@ -117,31 +117,6 @@ function hbi_nodeapi(&$node, $op, $arg = 0) {
 }
 
 /**
- * Implementation of hook_user_relationships().
- */
-function hbi_user_relationships($op, &$relationship) {
-
-  if ($op == 'approve' && $relationship->name == 'contact') {
-
-    $message_id = 'heartbeat_become_friends_ur';
-    $variables = array(
-      '@user1' => l($relationship->requestee->name, 'user/' . $relationship->requestee->uid),
-      '@relation_type' => 'contact',
-      '@user2' => l($relationship->requester->name, 'user/' . $relationship->requester->uid),
-      'duplicate'=> 1,
-    );
-    heartbeat_api_log($message_id, $relationship->requestee->uid, $relationship->requester->uid, 0, 0, $variables);
-
-    $variables_reversed = $variables;
-    $variables_reversed['@user1'] = $variables['@user2'];
-    $variables_reversed['@user2'] = $variables['@user1'];
-    heartbeat_api_log($message_id, $relationship->requester->uid, $relationship->requestee->uid, 0, 0, $variables_reversed);
-
-  }
-
-}
-
-/**
  * Implementation of hook_flag_friend().
  */
 function hbi_flag_friend($op, $friend, $user) {

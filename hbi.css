@@ -90,11 +90,7 @@ span.hover-delete {
 }
 span.hover-delete a {
   font-size: 0.85em;
-  /*background-color: #bbbbbb;
-  border: 1px solid #aaaaaa;/**/
 }
-
-
 
 /**
  *
@@ -226,16 +222,11 @@ div.heartbeat-comments {
 .heartbeat-comments-wrapper {
   padding: 1px 0;
   margin: 0;
-  /*width: 386px;/**/
   clear: both;
-  /*float: left;/**/
   width: 100%;
 }
 .heartbeat-comments form {
-  /*background-color: #ebebeb;
-  width: 386px;/**/
   clear: both;
-  /*float: left;/**/
 }
 
 .heartbeat-comments ul {
@@ -262,30 +253,15 @@ div.heartbeat-comments {
  display: none;  
 }
 .heartbeat-comments .resizable-textarea {
- /*margin: 0 auto;
- width: 366px;/**/
  padding: 3px 0 0 0;  
 }
 .heartbeat-comments .resizable-textarea textarea {
- /*margin: 0 auto;
- width: 366px;*/
  padding: 3px 0 0 0;  
 }
 .heartbeat-comments .form-submit,
 .block-shouts .shout-submit {
-  
-  /*color: #fff;
-  -moz-background-clip:border;
-  -moz-background-inline-policy:continuous;
-  -moz-background-origin:padding;
-  background:#fff url(../../../themes/nitobe/styles/images/background-dark.gif) repeat scroll 0 0;
-
-  border: none;
-  padding: 2px 5px;
-  font-weight: bold;
-  text-align: center;
-  text-variant: small-caps;/**/
 }
+
 .heartbeat-comments .form-submit {
   margin: 0px auto 5px 10px; 
 }
@@ -295,20 +271,19 @@ div.heartbeat-comments {
 
 span.heartbeat-comment-counter {
   position: absolute; right: 5px; top: 5px; z-index: 100;
-  /*width: 23px;/**/ height: 23px;
+  height: 23px;
   display: block;
 }
 span.heartbeat-comment-count a {
   color: #333;
   display: block;
-  /*width: 23px;/**/ height: 23px;
+  height: 23px;
   line-height: 19px;
   font-size: 10px;
   padding: 0 0 0 25px;
 }
 span.heartbeat-comment-count.uncommented {
   background:  transparent url('images/comment_add_icon.png') 0 50% no-repeat;
-  /*text-indent: -999px;/**/
 }
 span.heartbeat-comment-count.commented {
   background:  transparent url('images/comment_icon.png') 0 50% no-repeat;
@@ -329,19 +304,15 @@ span.heartbeat-comment-count.commented {
 .heartbeat-attachments span.og,
 .heartbeat-attachments span.friend, 
 .heartbeat-attachments span.heartbeat-comment-button {
-  /*width: 23px;/**/
   margin-right: 2px;
   margin-left: 2px;
 }
 .heartbeat-attachments span.og a ,
 .heartbeat-attachments span.friend a, 
-.heartbeat-attachments a.friendlist_ui_TW_NONE_add, 
-.heartbeat-attachments span a.user_relationships_popup_link {
+.heartbeat-attachments a.friendlist_ui_TW_NONE_add {
   display: block;
   height: 23px;
   line-height: 23px;
-  /*text-indent : -9999px;
-  width: 23px; /**/
 }
 .heartbeat-attachments span.flag-ilike a {
   display: block;
@@ -356,17 +327,7 @@ span.heartbeat-comment-count.commented {
 }
 .heartbeat-attachments span.flag-ilike a.unflag-action {
   background-image: url('images/thumbs_down_icon.png'); 
-}/*
-.heartbeat-attachments span.og a {
-  background:  transparent url('images/icon_groups.gif') 0 50% no-repeat;
 }
-.heartbeat-attachments a.friendlist_ui_TW_NONE_add {
-  background:  transparent url('images/friend_add_icon.png') 0 50% no-repeat;
-} 
-.heartbeat-attachments span a.user_relationships_popup_link {
-  background:  transparent url('images/tic_add_friend.gif') 0 50% no-repeat;
-}
-/**/
 
 /**
   * Shout box

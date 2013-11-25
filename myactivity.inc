@@ -79,14 +79,6 @@ class MyActivity extends HeartbeatAccess {
               $msg_array[] = $message;
             }
           }
-
-          /*if (sizeof(user_relationships_load($param = array("approved" => 1, "between" => array($viewed_user_uid, $msg_uid)))) > 0)
-            $msg_array[] = $message;
-
-          // Add status updates to heartbeat stream.
-          if ((sizeof(user_relationships_load($param = array("approved" => 1, "between" => array($viewed_user_uid, $message->uid)))) > 0) && ($message->message_id == 'fb_status_update')) {
-            $msg_array[] = $message;
-          }*/
         }
       }
 
